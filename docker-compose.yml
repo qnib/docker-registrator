@@ -16,5 +16,5 @@ registrator:
      - consul:consul
     privileged: true
     environment:
-     - REGISTRATOR_INTERAL_PORTS=true
-     #- REGISTRATOR_ADDV_IP=192.168.0.100
+     #- REGISTRATOR_INTERAL_IP=true
+     - REGISTRATOR_ADDV_IP=192.168.0.100

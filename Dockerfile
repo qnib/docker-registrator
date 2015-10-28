@@ -15,3 +15,4 @@ RUN yum install -y git-core golang make bsdtar && \
 ADD opt/qnib/registrator/bin/start.sh /opt/qnib/registrator/bin/
 ADD etc/supervisord.d/registrator.ini /etc/supervisord.d/
 ADD etc/consul.d/registrator.json /etc/consul.d/
+ADD opt/qnib/registrator/etc/registrator_warn.json /opt/qnib/registrator/etc/

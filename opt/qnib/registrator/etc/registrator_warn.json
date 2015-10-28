@@ -1,0 +1,16 @@
+{
+  "service": {
+    "name": "registrator",
+    "checks": [
+        {
+              "script": "ps -ef|grep -v grep | grep /usr/local/bin/registrator",
+              "interval": "5s"
+        },
+        {
+              "script": "echo \"REGISTRATOR_INTERAL_IP==true will overrule REGISTRATOR_ADDV_IP=='${REGISTRATOR_ADDV_IP}', so choose one!\" ; exit 1",
+              "interval": "5s"
+        }
+       ]
+    }
+  }
+}
