@@ -1,0 +1,9 @@
+{
+  "service": {
+    "name": "registrator",
+    "check": {
+      "script": "ps -ef|grep -v grep | grep /usr/local/bin/registrator",
+      "interval": "5s"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+consul:
+    image: qnib/consul
+    ports:
+     - "8500:8500"
+    hostname: consul
+    dns: 127.0.0.1
+    privileged: true
+
+registrator:
+    image: qnib/registrator
+    dns: 127.0.0.1
+    hostname: registrator
+    volumes:
+     - /var/run/docker.sock:/tmp/docker.sock
+    links:
+     - consul:consul
+    privileged: true
+    environment:
+     - REGISTRATOR_INTERAL_PORTS=true
+     #- REGISTRATOR_ADDV_IP=192.168.0.100
