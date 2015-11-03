@@ -1,5 +1,9 @@
 #!/bin/bash
 
+source /opt/qnib/consul/etc/bash_functions.sh
+
+wait_for_srv consul
+
 if [ "X${REGISTRATOR_ADDV_IP}" != "X" ];then
    if [ "X${REGISTRATOR_INTERAL_IP}" == "Xtrue" ];then
        echo "ERROR! >> REGISTRATOR_INTERAL_IP==true will overrule REGISTRATOR_ADDV_IP=='${REGISTRATOR_ADDV_IP}', so choose one!"
