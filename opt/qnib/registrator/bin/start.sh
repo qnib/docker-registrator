@@ -29,5 +29,12 @@ fi
 if [ "X${REGISTRATOR_INTERAL_IP}" == "Xtrue" ];then
    INTER="-internal=true"
 fi
+# In- / Exclude
+if [ "X${REGISTRATOR_FILTER_INCLUDE}" != "X" ];then
+   INCLUDE=" --include=${REGISTRATOR_FILTER_INCLUDE}"
+fi
+if [ "X${REGISTRATOR_FILTER_EXCLUDE}" != "X" ];then
+   EXCLUDE=" --exclude=${REGISTRATOR_FILTER_EXCLUDE}"
+fi
 
-/usr/local/bin/registrator ${INTER} ${IP} consul://consul.service.consul:8500
+/usr/local/bin/registrator ${EXCLUDE} ${INCLUDE} ${INTER} ${IP} consul://consul.service.consul:8500

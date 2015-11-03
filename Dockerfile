@@ -1,13 +1,22 @@
 ###### QNIBTerminal image
 FROM qnib/terminal
 
-ENV GOPATH /go 
-RUN yum install -y git-core golang make bsdtar && \
+# https://github.com/gliderlabs/registrator/archive/master.zip
+ENV GOPATH=/go \
+    REGISTRATOR_URL=https://github.com/qnib/registrator/archive \
+    REGISTRATOR_BRANCH=name_filter
+RUN yum install -y git-core golang make bsdtar --nogpgcheck && \
     mkdir -p /go/src/github.com/gliderlabs/ && \
-    curl -fsL https://github.com/gliderlabs/registrator/archive/master.zip | bsdtar xf - -C /go/src/github.com/gliderlabs/ && \
-    mv /go/src/github.com/gliderlabs/registrator-master /go/src/github.com/gliderlabs/registrator && \
+    curl -fsL ${REGISTRATOR_URL}/${REGISTRATOR_BRANCH}.zip | bsdtar xf - -C /go/src/github.com/gliderlabs/ && \
+    mv /go/src/github.com/gliderlabs/registrator-${REGISTRATOR_BRANCH} /go/src/github.com/gliderlabs/registrator && \
+    go get github.com/fsouza/go-dockerclient && \
+    go get github.com/gliderlabs/pkg/usage && \
+    go get github.com/cenkalti/backoff && \
+    go get github.com/coreos/go-etcd/etcd && \
+    go get github.com/hashicorp/consul/api && \
+    go get github.com/qnib/registrator/bridge && \
+    go get gopkg.in/coreos/go-etcd.v0/etcd && \
     cd /go/src/github.com/gliderlabs/registrator/ && \
-    go get && \
     go build -ldflags "-X main.Version $(cat VERSION)" -o /usr/local/bin/registrator && \
     rm -rf /go && \
     yum erase -y git-core golang make bsdtar && \
